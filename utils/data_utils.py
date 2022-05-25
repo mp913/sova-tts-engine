@@ -36,6 +36,7 @@ import numpy as np
 import librosa
 import torch
 import torch.utils.data
+import wavio
 from scipy.io.wavfile import read
 
 from tps import prob2bool, symbols, cleaners
@@ -154,7 +155,7 @@ class TextMelLoader(torch.utils.data.Dataset):
         filepath = os.path.join(self.audio_path, filename)
 
         sample_rate, audio = read(filepath)
-        audio = np.float32(audio / self.max_wav_value) # faster than loading using librosa
+        audio = np.float32(audio / self.max_wav_value)  # faster than loading using librosa
 
         if sample_rate != self.sampling_rate:
             raise ValueError("{} SR doesn't match target {} SR".format(sample_rate, self.sampling_rate))
